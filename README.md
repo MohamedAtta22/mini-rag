@@ -20,3 +20,19 @@ $ conda activate mini-rag
 
 ### Install UV
 1) Follow the CLI installation [here](https://docs.astral.sh/uv/#highlights)
+
+## Installation
+
+### Install the required packages
+
+```bash
+$ pip install -r requirements.txt
+```
+
+### Setup the environmnet variables
+
+```bash
+$ cp .env.example .env
+```
+set your environment variables in the `.env` file. like the `OPENAI_API_KEY` value.
+
