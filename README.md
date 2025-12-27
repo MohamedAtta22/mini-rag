@@ -18,3 +18,5 @@ $ conda create -n mini-rag python=3.8
 $ conda activate mini-rag
 ```
 
+### Install UV
+1) Follow the CLI installation [here](https://docs.astral.sh/uv/#highlights)
