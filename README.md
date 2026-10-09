@@ -18,26 +18,53 @@ $ conda create -n mini-rag python=3.8
 $ conda activate mini-rag
 ```
 
-### Install UV
+### Install Python using UV
+
 1) Follow the CLI installation [here](https://docs.astral.sh/uv/#highlights)
+2) Install Python 3.12 (UV downloads a standalone build if needed):
+```bash
+$ uv python install 3.8.20
+```
 
 ## Installation
 
 ### Install the required packages
 
+This project uses `pyproject.toml` as the single source of truth
+(mirrored in `src/requirements.txt` for pip users).
+
 ```bash
-$ pip install -r requirements.txt
+$ uv sync
+```
+
+Pip fallback:
+
+```bash
+$ pip install -r src/requirements.txt
 ```
 
 ### Setup the environmnet variables
 
 ```bash
+$ cp src/.env.example src/.env
+```
+set your environment variables in the `src/.env` file. like the `OPENAI_API_KEY` value.
+
+## Run Docker Compose Services
+```bash
+$ cd docker
 $ cp .env.example .env
 ```
-set your environment variables in the `.env` file. like the `OPENAI_API_KEY` value.
+- update `.env` with your credentials
+
+```bash
+$ cd docker
+$ sudo docker compose up -d
+```
 
 ## Run the FastAPI server
 
 ```bash
+$ cd src
 $ uvicorn main:app --reload --host 0.0.0.0 --port 5000
 ```
