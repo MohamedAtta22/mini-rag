@@ -2,6 +2,7 @@ from .BaseDataModel import BaseDataModel
 from .db_schemes import Asset
 from .enums.DataBaseEnum import DataBaseEnum
 from bson import ObjectId
+from typing import Optional, Union
 
 class AssetModel(BaseDataModel):
 
@@ -56,4 +57,27 @@ class AssetModel(BaseDataModel):
         if record:
             return Asset(**record)
         
+        return None
+
+    async def get_asset_by_id(self, asset_id: str, asset_project_id: Optional[Union[str, ObjectId]] = None):
+
+        if not ObjectId.is_valid(asset_id):
+            return None
+
+        query = {
+            "_id": ObjectId(asset_id),
+        }
+
+        if asset_project_id is not None:
+            query["asset_project_id"] = (
+                ObjectId(asset_project_id)
+                if isinstance(asset_project_id, str)
+                else asset_project_id
+            )
+
+        record = await self.collection.find_one(query)
+
+        if record:
+            return Asset(**record)
+
         return None

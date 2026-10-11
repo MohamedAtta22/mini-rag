@@ -47,7 +47,7 @@ async def upload_data(request: Request, project_id: str, file: UploadFile,
         )
 
     project_dir_path = ProjectController().get_project_path(project_id=project_id)
-    file_path, file_id = data_controller.generate_unique_filepath(
+    file_path, asset_name = data_controller.generate_unique_filepath(
         orig_file_name=file.filename,
         project_id=project_id
     )
@@ -75,7 +75,7 @@ async def upload_data(request: Request, project_id: str, file: UploadFile,
     asset_resource = Asset(
         asset_project_id=project.id,
         asset_type=AssetTypeEnum.FILE.value,
-        asset_name=file_id,
+        asset_name=asset_name,
         asset_size=os.path.getsize(file_path)
     )
 
@@ -109,10 +109,18 @@ async def process_endpoint(request: Request, project_id: str, process_request: P
 
     project_files_ids = {}
     if process_request.file_id:
-        asset_record = await asset_model.get_asset_record(
+        # Canonical input is the Mongo asset _id returned by /upload.
+        # Fall back to asset_name (disk filename) for backward compatibility.
+        asset_record = await asset_model.get_asset_by_id(
+            asset_id=process_request.file_id,
             asset_project_id=project.id,
-            asset_name=process_request.file_id
         )
+
+        if asset_record is None:
+            asset_record = await asset_model.get_asset_record(
+                asset_project_id=project.id,
+                asset_name=process_request.file_id
+            )
 
         if asset_record is None:
             return JSONResponse(
