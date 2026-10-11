@@ -1,57 +1,219 @@
 {
-	"info": {
-		"_postman_id": "1f67dedb-1b93-4639-9f96-7fe8681693f4",
-		"name": "mini-rag-app",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "854486",
-		"_collection_link": "https://www.postman.com/gold-water-645258/workspace/mini-rag-app/collection/854486-1f67dedb-1b93-4639-9f96-7fe8681693f4?action=share&source=collection_link&creator=854486"
-	},
-	"item": [
-		{
-			"name": "welcome-request",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{api}}/welcome",
-					"host": [
-						"{{api}}"
-					],
-					"path": [
-						"welcome"
-					]
-				}
-			},
-			"response": []
-		}
-	],
-	"event": [
-		{
-			"listen": "prerequest",
-			"script": {
-				"type": "text/javascript",
-				"packages": {},
-				"exec": [
-					""
-				]
-			}
-		},
-		{
-			"listen": "test",
-			"script": {
-				"type": "text/javascript",
-				"packages": {},
-				"exec": [
-					""
-				]
-			}
-		}
-	],
-	"variable": [
-		{
-			"key": "api",
-			"value": "http://127.0.0.1:8000",
-			"type": "string"
-		}
-	]
+  "info": {
+    "_postman_id": "89e06f09-f8a1-4daa-b33d-ef910ce54158",
+    "name": "mini-rag-app",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "46335933",
+    "_collection_link": "https://go.postman.co/collection/46335933-89e06f09-f8a1-4daa-b33d-ef910ce54158?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "welcome-request",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{api}}/api/v1/data/",
+          "host": [
+            "{{api}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "data",
+            ""
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "upload_file",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": []
+        },
+        "url": {
+          "raw": ""
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "process",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"file_id\": \"6ac84e1536664efe90c7f0d7\",\n    \"chunk_size\": 400,\n    \"overlap_size\": 20\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{api}}/api/v1/data/process/1",
+          "host": [
+            "{{api}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "data",
+            "process",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "nlp_index_push",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"do_reset\": 0\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{api}}/api/v1/nlp/index/push/1",
+          "host": [
+            "{{api}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "nlp",
+            "index",
+            "push",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "nlp_index_info",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{api}}/api/v1/nlp/index/info/1",
+          "host": [
+            "{{api}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "nlp",
+            "index",
+            "info",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "nlp_index_search",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"text\": \"ما سبب خلاف تسلا و توماس اديسون\",\n    \"limit\": 5\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{api}}/api/v1/nlp/index/search/1",
+          "host": [
+            "{{api}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "nlp",
+            "index",
+            "search",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "nlp_rag_answer",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"text\": \"ما سبب خلاف تسلا و توماس اديسون\",\n    \"limit\": 5\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{api}}/api/v1/nlp/index/answer/1",
+          "host": [
+            "{{api}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "nlp",
+            "index",
+            "answer",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "api",
+      "value": "http://127.0.0.1:8000"
+    }
+  ]
 }
