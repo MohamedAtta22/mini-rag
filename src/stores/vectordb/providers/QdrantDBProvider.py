@@ -34,11 +34,12 @@ class QdrantDBProvider(VectorDBInterface):
     async def list_all_collections(self) -> List:
         return self.client.get_collections()
     
-    async def get_collection_info(self, collection_name: str) -> dict:
+    def get_collection_info(self, collection_name: str) -> dict:
         return self.client.get_collection(collection_name=collection_name)
     
     async def delete_collection(self, collection_name: str):
         if self.is_collection_existed(collection_name):
+            self.logger.info(f"Deleting collection: {collection_name}") 
             return self.client.delete_collection(collection_name=collection_name)
         
     async def create_collection(self, collection_name: str, 

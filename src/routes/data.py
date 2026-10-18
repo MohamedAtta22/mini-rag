@@ -48,7 +48,7 @@ async def upload_data(request: Request, project_id: int, file: UploadFile,
         )
 
     project_dir_path = ProjectController().get_project_path(project_id=project_id)
-    file_path, asset_name = data_controller.generate_unique_filepath(
+    file_path, file_id = data_controller.generate_unique_filepath(
         orig_file_name=file.filename,
         project_id=project_id
     )
@@ -76,7 +76,7 @@ async def upload_data(request: Request, project_id: int, file: UploadFile,
     asset_resource = Asset(
         asset_project_id=project.project_id,
         asset_type=AssetTypeEnum.FILE.value,
-        asset_name=asset_name,
+        asset_name=file_id,
         asset_size=os.path.getsize(file_path)
     )
 
@@ -174,7 +174,7 @@ async def process_endpoint(request: Request, project_id: int, process_request: P
 
     if do_reset == 1:
         # delete associated vectors collection
-        collection_name = nlp_controller.create_collection_name(project_id=project_id)
+        collection_name = nlp_controller.create_collection_name(project_id=project.project_id)
         _ = await request.app.vectordb_client.delete_collection(collection_name=collection_name)
 
         # delete associated chunks
